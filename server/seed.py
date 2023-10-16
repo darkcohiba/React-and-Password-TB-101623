@@ -8,10 +8,18 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db
+from models import db, User
 
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
         print("Starting seed...")
         # Seed code goes here!
+        # db.create_all()
+        for _ in range(15):
+            u = User(
+                username = fake.name(),
+                password_hash = "123abc"
+            )
+            db.session.add(u)
+            db.session.commit()
